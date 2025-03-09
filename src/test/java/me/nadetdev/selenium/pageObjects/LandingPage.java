@@ -23,5 +23,4 @@ public class LandingPage {
     private String extractProductName(String productName) {
         return productName.split("-")[0].trim();
     }
-
 }

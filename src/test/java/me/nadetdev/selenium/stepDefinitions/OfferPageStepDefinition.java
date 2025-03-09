@@ -5,8 +5,8 @@ import io.cucumber.java.en.Then;
 import java.util.Iterator;
 import java.util.Set;
 
+import me.nadetdev.selenium.pageObjects.OffersPage;
 import me.nadetdev.selenium.utils.TestContextSetup;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 
 public class OfferPageStepDefinition {
@@ -18,15 +18,12 @@ public class OfferPageStepDefinition {
 
   @Then("user searched for {string} shortname in Offers page")
   public void userSearchedForSameShortnameInOffersPageToCheckIfProductExist(String shortName) throws InterruptedException {
-    testContextSetup.getDriver().findElement(By.linkText("Top Deals")).click();
-
+    OffersPage offersPage = new OffersPage(testContextSetup.getDriver());
+    offersPage.clickTopDealsLink();
     this.switchToOffersPage();
-
-    testContextSetup.getDriver().findElement(By.xpath("//input[@type='search']")).sendKeys(shortName);
+    offersPage.searchProduct(shortName);
     Thread.sleep(2000);
-
-    String offerPageProductName =  testContextSetup.getDriver().findElement(By.cssSelector("tbody tr td:nth-child(1)")).getText();
-    testContextSetup.setOfferPageProductName(offerPageProductName);
+    testContextSetup.setOfferPageProductName(offersPage.getProductName());
   }
 
   @And("validate product name in Offers page matches with landing page")
@@ -37,10 +34,8 @@ public class OfferPageStepDefinition {
   public void switchToOffersPage(){
     Set<String> windowHandles =  testContextSetup.getDriver().getWindowHandles();
     Iterator<String> windowIterator = windowHandles.iterator();
-
     String parentWindow = windowIterator.next();
     String childWindow = windowIterator.next();
-
     testContextSetup.getDriver().switchTo().window(childWindow);
   }
 }
