@@ -23,7 +23,7 @@ public class OfferPageStepDefinition {
     this.switchToOffersPage();
     offersPage.searchProduct(shortName);
     Thread.sleep(2000);
-    testContextSetup.setOfferPageProductName(offersPage.getProductName());
+    testContextSetup.setOfferPageProductName(offersPage.getReturnedProductName());
   }
 
   @And("validate product name in Offers page matches with landing page")

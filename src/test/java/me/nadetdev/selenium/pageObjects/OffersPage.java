@@ -22,7 +22,7 @@ public class OffersPage {
         driver.findElement(searchFieldLocator).sendKeys(productName);
     }
 
-    public String getProductName() {
+    public String getReturnedProductName() {
        return driver.findElement(productNameLocator).getText();
     }
 }
