@@ -1,25 +1,19 @@
 package me.nadetdev.selenium.utils;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.Objects;
 
 public class TestContextSetup {
-    public WebDriver driver;
-    public String landingPageProductName;
-    public String offerPageProductName;
+    public static WebDriver driver;
+    public static String landingPageProductName;
+    public static String offerPageProductName;
+    public final String LANDING_PAGE_URL = "https://rahulshettyacademy.com/seleniumPractise/#/";
+    public final String OFFERS_PAGE_URL = "https://rahulshettyacademy.com/seleniumPractise/#/offers";
+    public final String CHROME_DRIVER_PATH = "src/test/resources/chrome/chromedriver.exe";
 
     public TestContextSetup() {
-    }
-
-    public TestContextSetup(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public TestContextSetup(WebDriver driver, String landingPageProductName, String offerPageProductName) {
-        this.driver = driver;
-        this.landingPageProductName = landingPageProductName;
-        this.offerPageProductName = offerPageProductName;
     }
 
     public WebDriver getDriver() {
@@ -27,7 +21,7 @@ public class TestContextSetup {
     }
 
     public void setDriver(WebDriver driver) {
-        this.driver = driver;
+        TestContextSetup.driver = driver;
     }
 
     public String getLandingPageProductName() {
@@ -35,7 +29,7 @@ public class TestContextSetup {
     }
 
     public void setLandingPageProductName(String landingPageProductName) {
-        this.landingPageProductName = landingPageProductName;
+        TestContextSetup.landingPageProductName = landingPageProductName;
     }
 
     public String getOfferPageProductName() {
@@ -43,14 +37,20 @@ public class TestContextSetup {
     }
 
     public void setOfferPageProductName(String offerPageProductName) {
-        this.offerPageProductName = offerPageProductName;
+        TestContextSetup.offerPageProductName = offerPageProductName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        TestContextSetup that = (TestContextSetup) o;
-        return Objects.equals(driver, that.driver) && Objects.equals(landingPageProductName, that.landingPageProductName) && Objects.equals(offerPageProductName, that.offerPageProductName);
+    public String getLANDING_PAGE_URL() {
+        return LANDING_PAGE_URL;
+    }
+
+    public String getOFFERS_PAGE_URL() {
+        return OFFERS_PAGE_URL;
+    }
+
+    public void initBrowserDriver(){
+        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
+        this.setDriver(new ChromeDriver());
     }
 
     @Override
